@@ -4,8 +4,8 @@ const alert=require('alert')
 
 const createUser=async (req,res)=>{
 
-    const {username,email,password,domain,gender,about}=req.body
-    const newPostUser=new PostUser({username,email,password,domain,gender,about})
+    const {username,email,password,domain,gender,about,file}=req.body
+    const newPostUser=new PostUser({username,email,password,domain,gender,about,file})
     user=await PostUser.findOne({email})
     newPostUser.save()
     try {

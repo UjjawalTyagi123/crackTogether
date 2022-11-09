@@ -12,7 +12,7 @@ import FileBase from 'react-file-base64';
 function  SignIn() {
     const navigate=useNavigate();
     const [toggle,setToggle]=useState(true);
-    const [UserData,setUserData]=useState({username:'',email:'',password:'',domain:'',gender:'',about:''})
+    const [UserData,setUserData]=useState({username:'',email:'',password:'',domain:'',gender:'',about:'',file:""})
     const dispatch=useDispatch()
 
     const handleToggle=()=>{
@@ -21,14 +21,14 @@ function  SignIn() {
   
   const HandleSubmit= (e)=>{
   e.preventDefault()
-  if(UserData.username==='' || UserData.email==='' || UserData.password==='' || UserData.domain==='' || UserData.gender==='') {
+  if(UserData.username==='' || UserData.email==='' || UserData.password===''  || UserData.gender==='' || UserData.file==='') {
     alert("All the fields are mandatory!")
   }
   
   else{
  dispatch(createUser(UserData));
  navigate('/home')
-    setUserData({username:'',email:'',password:'',domain:'',gender:'',about:''})
+    setUserData({username:'',email:'',password:'',domain:'',gender:'',about:'',file:''})
   }
   }
   const clientId="58927125457-1e2s4kidkjgstbf4o2ok053b71m4ptr0.apps.googleusercontent.com"
@@ -122,7 +122,8 @@ function  SignIn() {
       <option value="male">Male</option>
       <option value="female">Female</option>
     </Form.Select>
-
+    <div><FileBase type="file" multiple={false} onDone={({ base64 }) =>setUserData({...UserData,file:base64})} /></div>
+   
     <Form.Group className="mb-3" controlId="about">
         <Form.Label>About</Form.Label>
         <Form.Control type="text" placeholder="write regarding your preparation in about 10 words..."

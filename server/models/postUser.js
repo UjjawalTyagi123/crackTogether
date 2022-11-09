@@ -24,7 +24,11 @@ unique:true},
 
     about:{
         type:String,
-    require:true}
+    require:true},
+    file:{
+        type:String,
+        require:true
+    }
 })
 
 var PostUser = mongoose.model('PostUser', PostSchema);

@@ -8,13 +8,10 @@ import { useDispatch ,useSelector} from "react-redux";
 import { getUsers } from "./actions/index";
 import Card from "./components/cards/index";
 function App() {
-  
-
   const clientId="58927125457-1e2s4kidkjgstbf4o2ok053b71m4ptr0.apps.googleusercontent.com"
   const dispatch=useDispatch()
-
  useEffect(()=>{
-  // dispatch(getUsers())
+
   function start(){
     gapi.client.init({
       clientId:clientId,
@@ -22,15 +19,15 @@ function App() {
     })
   }
  gapi.load('client:auth2',start)
-
- },[dispatch])
+ 
+ })
 
   return (
     <>
    <Routes>
      <Route path="/home" element={<Home/>}/>
      <Route exact path="/" element={<SignIn/>}/>
-     <Route path="/students" element={<Card/>}/>
+     {/* <Route path="/students" element={<Card prop="ujjawal"/>}/> */}
    </Routes>
   </>
   )

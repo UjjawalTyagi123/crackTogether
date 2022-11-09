@@ -1,19 +1,22 @@
-import { FETCH_USERS, SEND,GET_BY_DOMAIN } from "../components/constants";
+import { FETCH_USERS, SEND,GET_BY_DOMAIN, START_LOADING, END_LOADING } from "../components/constants";
 
-const user=(users=[],action)=>{
+const users=(state = { isLoading: true, users: [] }, action) =>{
    
     switch(action.type){
-       
+        case START_LOADING:
+           return { ...state, isloading: true };
+        case END_LOADING:
+            return {...state,isloading:false};
         case SEND:
-            return action.payload;
+            return {...state,users:[...state.posts,action.payload.data]};
         case FETCH_USERS:
-            return action.payload;
+            return {...state,users:action.payload.data};
         case GET_BY_DOMAIN:
-             return action.payload;
+             return {...state,users:action.payload.data};
         default:
-            return users;
+            return state;
     }
 
-}
+};
 
-export default user;
+export default users;
