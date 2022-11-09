@@ -24,15 +24,14 @@ const createUser=async (req,res)=>{
     }
 
   const getUsers=async (req,res)=>{
-
     const users=await PostUser.find();
     try {
       res.status(201).json(users)
     } catch (error) {
       res.json({message:error.message})
     }
-  }
-
+  }  
+   
   const getUsersByDomain=async(req,res)=>{
     const id=req.params.id
     try {
@@ -43,4 +42,15 @@ const createUser=async (req,res)=>{
       res.json({message:error.message})
     }
   }
-module.exports={createUser,getUsers,getUsersByDomain}
+
+ const makeUserLogin=async(req,res)=>{
+  let setRes;
+  const {email,password}=req.body;
+  const users=await PostUser.findOne({email});
+  if(!users) res.json(0)
+ else if(email===users.email && password===users.password) res.json(1)
+  else if(email===users.email && password !==users.password)res.json(2)
+  
+  // const user=allUser.filter(user=>user.email===email)
+ }
+module.exports={createUser,getUsers,getUsersByDomain,makeUserLogin}

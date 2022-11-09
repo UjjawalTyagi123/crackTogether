@@ -32,3 +32,14 @@ export const getbydomain=(id)=>async(dispatch)=>{
         console.log("could not get by domain");
     }
 }
+
+export const  loginUser=(user)=>async(dispatch)=>{
+    console.log("login");
+     try {
+        const loggedUser=await api.getLoginUser(user);
+         console.log(loggedUser.data);
+         return loggedUser.data
+     } catch (error) {
+        console.log("some technical issue!");
+     }
+}

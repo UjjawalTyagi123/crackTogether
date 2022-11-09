@@ -5,14 +5,16 @@ import Form from 'react-bootstrap/Form';
 import {GoogleLogin} from "react-google-login"
 import "./signIn.css"
 import { useNavigate } from 'react-router-dom';
-import {createUser} from "../../actions/index"
+import {createUser, loginUser} from "../../actions/index"
 import {useDispatch} from "react-redux"
 import FileBase from 'react-file-base64';
+
 
 function  SignIn() {
     const navigate=useNavigate();
     const [toggle,setToggle]=useState(true);
     const [UserData,setUserData]=useState({username:'',email:'',password:'',domain:'',gender:'',about:'',file:""})
+    const [loginData,setLoginData]=useState({email:'',password:''})
     const dispatch=useDispatch()
 
     const handleToggle=()=>{
@@ -32,7 +34,13 @@ function  SignIn() {
   }
   }
   const clientId="58927125457-1e2s4kidkjgstbf4o2ok053b71m4ptr0.apps.googleusercontent.com"
-  
+  const handleLogin=async(e)=>{
+    e.preventDefault();
+   const data=await dispatch(loginUser(loginData));
+   if(data===0) alert('user not exist!')
+   else if(data===1) navigate('/home')
+   else alert('wrong password!')
+  }
   const onsuccess=(res)=>{
     navigate('/home')
   }
@@ -46,16 +54,18 @@ function  SignIn() {
        {toggle ? <Form>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email"/>
+        <Form.Control type="email" placeholder="Enter email" value={loginData.email} name="email"
+          onChange={(e)=>setLoginData({...loginData,email:e.target.value})}/>
      
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" />
+        <Form.Control type="password" placeholder="Password" value={loginData.password} name="password"
+          onChange={(e)=>setLoginData({...loginData,password:e.target.value})}/>
       </Form.Group>
 
-      <Button variant="primary" type="submit" >
+      <Button variant="primary" type="submit" onClick={handleLogin}>
        Login
       </Button>
       <div id="signInButton">
