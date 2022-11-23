@@ -5,12 +5,13 @@ import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import Card from "../cards/index";
-import Form from 'react-bootstrap/Form';
+import Form from "react-bootstrap/Form";
 import { Grid } from "@material-ui/core";
 import { getUsers } from "../../actions";
-export const Home = () => {
+
+export const Home = (props) => {
   const navigate = useNavigate();
-  const [stream,setStream]=useState('ALL')
+  const [stream, setStream] = useState("ALL");
   const clientId =
     "58927125457-1e2s4kidkjgstbf4o2ok053b71m4ptr0.apps.googleusercontent.com";
   const dispatch = useDispatch();
@@ -23,11 +24,10 @@ export const Home = () => {
 
   return (
     <>
-      
       <Link to="/">
         <h2> Go to login Page</h2>
-        </Link>
-     
+      </Link>
+
       <Form.Select
         aria-label="Default select example"
         onChange={(e) => setStream(e.target.value)}
@@ -56,7 +56,7 @@ export const Home = () => {
         </option>
       </Form.Select>
       <Grid item xs={12} sm={8} md={10}>
-        <Card stream={stream}/>
+        <Card stream={stream} props={props.setId}/>
       </Grid>
       {/* <div id="signOutButton">
         <GoogleLogout

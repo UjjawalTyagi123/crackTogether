@@ -31,7 +31,7 @@ function Card(props){
             <Grid  container alignItems="stretch" spacing={1} style={{marginLeft:'2rem'}}>
         {users.map((user) => (
           <Grid key={user.id} item xs={12} sm={6} md={3}>
-          <Student user={user}/>
+          <Student user={user} props={props.props}/>
           </Grid>
         ))}
       </Grid>

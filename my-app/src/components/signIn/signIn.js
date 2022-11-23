@@ -13,24 +13,28 @@ import FileBase from 'react-file-base64';
 function  SignIn() {
     const navigate=useNavigate();
     const [toggle,setToggle]=useState(true);
-    const [UserData,setUserData]=useState({username:'',email:'',password:'',domain:'',gender:'',about:'',file:""})
+    const [UserData,setUserData]=useState({username:'',email:'',password:'',ConfirmPassword:'',facebook:'',instagram:'',domain:'',gender:'',about:'',file:""})
     const [loginData,setLoginData]=useState({email:'',password:''})
     const dispatch=useDispatch()
 
     const handleToggle=()=>{
         setToggle(!toggle)
     }
-  
+   const star=(<h3>hey</h3>)
   const HandleSubmit= (e)=>{
   e.preventDefault()
-  if(UserData.username==='' || UserData.email==='' || UserData.password===''  || UserData.gender==='' || UserData.file==='') {
+  if(UserData.username==='' || UserData.email==='' ||  UserData.password===''  ||
+  UserData.ConfirmPassword===''|| UserData.gender===''  || (UserData.facebook==='' && 
+   UserData.instagram==='')) {
     alert("All the fields are mandatory!")
   }
-  
+ if(UserData.password!==UserData.ConfirmPassword) {
+  alert('Password and confirm Password are not same!')
+ }
   else{
  dispatch(createUser(UserData));
  navigate('/home')
-    setUserData({username:'',email:'',password:'',domain:'',gender:'',about:'',file:''})
+    setUserData({username:'',email:'',password:'',confirmPassword:'',facebook:'',instagram:'',domain:'',gender:'',about:'',file:''})
   }
   }
   const clientId="58927125457-1e2s4kidkjgstbf4o2ok053b71m4ptr0.apps.googleusercontent.com"
@@ -51,6 +55,9 @@ function  SignIn() {
   return (
  
     <div className='form-main'>
+    {
+      toggle ?<h2>Logging an Account</h2>:<h1>Creating an Account </h1>
+    }
        {toggle ? <Form>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
@@ -91,7 +98,7 @@ function  SignIn() {
     <Form>
       <Form.Group className="mb-3" controlId="username">
         <Form.Label>UserName</Form.Label>
-        <Form.Control type="text" placeholder="Enter name"  value={UserData.username} name="name"
+        <Form.Control className='testing' type="text" placeholder="Enter name...*" value={UserData.username}  name="name"
           onChange={(e)=>setUserData({...UserData,username:e.target.value})}
         />
      
@@ -99,7 +106,7 @@ function  SignIn() {
      
       <Form.Group className="mb-3" controlId="email">
         <Form.Label>Email</Form.Label>
-        <Form.Control type="email" placeholder="Enter email"
+        <Form.Control type="email" placeholder="Enter email...*"
           value={UserData.email} name="email"
           onChange={(e)=>setUserData({...UserData,email:e.target.value})}
         />
@@ -108,31 +115,59 @@ function  SignIn() {
 
       <Form.Group className="mb-3" controlId="Password">
         <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password"
+
+        <Form.Control type="password" placeholder=" Set password...*"
            value={UserData.password}
           onChange={(e)=>setUserData({...UserData,password:e.target.value})} />
       </Form.Group>
-    
+     
+      <Form.Group className="mb-3" controlId="Password">
+        <Form.Label> Confirm Password</Form.Label>
+
+        <Form.Control type="password" placeholder=" Confirm password...*"
+           value={UserData.ConfirmPassword}
+          onChange={(e)=>setUserData({...UserData,ConfirmPassword:e.target.value})} />
+      </Form.Group>
+     
+
+      <Form.Group className="mb-3" controlId="email">
+        <Form.Label>Facebook url</Form.Label>
+        <Form.Control type="email" placeholder="https://www.facebook.com/"
+          value={UserData.facebook} name="facebook"
+          onChange={(e)=>setUserData({...UserData,facebook:e.target.value})}
+        />   
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="email">
+        <Form.Label>Instagram Id</Form.Label>
+        <Form.Control type="email" placeholder="Account Name"
+          value={UserData.instagram} name="insatgram"
+          onChange={(e)=>setUserData({...UserData,instagram:e.target.value})}
+        />
+     
+      </Form.Group>
       <Form.Select aria-label="Default select example"    
        value={UserData.domain}
           onChange={(e)=>setUserData({...UserData,domain:e.target.value})}>
-      <option>Choose your Domain</option>
+      <option>Choose your Domain...*</option>
       <option value="UPSC">UPSC</option>
       <option value="IIT">IIT</option>
       <option value="NEET">NEET</option>
       <option value="UPPCS">UPPCS</option>
       <option value="NDA">NDA</option>
       <option value="CDS">CDS</option>
-    </Form.Select>
-    
+    </Form.Select><br/>
+  
+
     <Form.Select aria-label="Default select example"  
        value={UserData.gender}
           onChange={(e)=>setUserData({...UserData,gender:e.target.value})}>
-      <option>Gender</option>
+      <option>Gender...*</option>
       <option value="male">Male</option>
       <option value="female">Female</option>
-    </Form.Select>
-    <div><FileBase type="file" multiple={false} onDone={({ base64 }) =>setUserData({...UserData,file:base64})} /></div>
+    </Form.Select><br/>
+
+    <div><FileBase type="file" multiple={false} onDone={({ base64 }) =>setUserData({...UserData,file:base64})} /></div><br/>
    
     <Form.Group className="mb-3" controlId="about">
         <Form.Label>About</Form.Label>

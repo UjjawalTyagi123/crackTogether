@@ -1,4 +1,4 @@
-import { FETCH_USERS, SEND,GET_BY_DOMAIN, START_LOADING, END_LOADING } from "../components/constants";
+import { FETCH_USERS, SEND, START_LOADING, END_LOADING, GET_BY_ID } from "../components/constants";
 
 const users=(state = { isLoading: true, users: [] }, action) =>{
    
@@ -11,7 +11,7 @@ const users=(state = { isLoading: true, users: [] }, action) =>{
             return {...state,users:[...state.posts,action.payload.data]};
         case FETCH_USERS:
             return {...state,users:action.payload.data};
-        case GET_BY_DOMAIN:
+        case GET_BY_ID:
              return {...state,users:action.payload.data};
         default:
             return state;

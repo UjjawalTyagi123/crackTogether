@@ -1,5 +1,5 @@
  import * as api from "../api/index.js"
-import { SEND,FETCH_USERS ,GET_BY_DOMAIN,START_LOADING,END_LOADING} from "../components/constants.js";
+import { SEND,FETCH_USERS ,GET_BY_ID,START_LOADING,END_LOADING} from "../components/constants.js";
 import SignIn from "../components/signIn/signIn.js";
 import { useNavigate } from "react-router-dom";
 
@@ -7,6 +7,7 @@ export const createUser=(data)=> async(dispatch)=>{
  
     try {
         const userData=await api.createUsr(data) 
+        console.log(userData);
         dispatch({type:SEND,payload:userData})
     } catch (error) {
         console.log("could not send");
@@ -24,10 +25,11 @@ export const getUsers=()=>async(dispatch)=>{
         console.log("could not fetch");
     }
 }
-export const getbydomain=(id)=>async(dispatch)=>{
+export const getbyId=(id)=>async(dispatch)=>{
     try {
-        const users=await api.getUsersByDomain(id)
-        dispatch({type:GET_BY_DOMAIN,payload:users})
+        const users=await api.getUserById(id)
+        console.log(users);
+        dispatch({type:GET_BY_ID,payload:users})
     } catch (error) {
         console.log("could not get by domain");
     }
