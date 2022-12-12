@@ -32,7 +32,7 @@ function App() {
      <Route path="/home" element={<Home setId={setId}/>}/>
      <Route exact path="/" element={<SignIn/>}/>
     
-     {/* <Route path="/students" element={<Card prop="ujjawal"/>}/> */}
+     //removed comment
    </Routes>
   </>
   )
